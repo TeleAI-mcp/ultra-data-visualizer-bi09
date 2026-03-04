@@ -1,0 +1,35 @@
+name: Automated Issue Comments
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  comment-on-label:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Comment on bug label
+        if: github.event.label.name == 'bug'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: 'Thank you for reporting this bug. Our team will investigate and fix it.'
+            })
+
+      - name: Comment on wontfix label
+        if: github.event.label.name == 'wontfix'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: 'After review, we have decided not to address this issue at this time.'
+            })
