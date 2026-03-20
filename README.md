@@ -1,2 +1,3 @@
-# ultra-data-visualizer-bi09
-Automated issue comment bot repository
+# Ultra Data Visualizer Bi09
+
+Automated issue comment bot repository.
